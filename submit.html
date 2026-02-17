@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Issue - FixVerse</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Submit an Issue</h1>
+  <p>Share your real-world troubleshooting experience</p>
+</header>
+
+<div class="container">
+  <form action="https://formspree.io/f/your-form-id" method="POST">
+    
+    <label>Subject:</label><br>
+    <input type="text" name="subject" required><br><br>
+
+    <label>Product:</label><br>
+    <select name="product">
+      <option>VMware</option>
+      <option>Veeam</option>
+    </select><br><br>
+
+    <label>Error Message:</label><br>
+    <textarea name="error" rows="3"></textarea><br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description" rows="4"></textarea><br><br>
+
+    <label>Solution Steps:</label><br>
+    <textarea name="solution" rows="6"></textarea><br><br>
+
+    <button type="submit">Submit</button>
+
+  </form>
+</div>
+
+</body>
+</html>
