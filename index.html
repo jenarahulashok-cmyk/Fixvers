@@ -70,6 +70,32 @@
       font-size: 14px;
     }
 
+    /* 🔘 FILTER BUTTONS */
+    .filter-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-buttons button {
+      margin: 0 5px 10px 5px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0a1f44;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .filter-buttons button:hover {
+      background-color: #163a7a;
+    }
+
+    .filter-buttons button.active {
+      background-color: #ff6600; /* active filter highlight */
+    }
+
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -139,6 +165,16 @@
 <div class="container">
 
   <div class="section-title">Latest Issues</div>
+
+  <!-- 🔘 FILTER BUTTONS -->
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="Veeam">Veeam</button>
+    <button class="filter-btn" data-filter="VMware">VMware</button>
+    <button class="filter-btn" data-filter="Linux">Linux</button>
+    <button class="filter-btn" data-filter="AWS">AWS</button>
+    <button class="filter-btn" data-filter="Cloud">Cloud</button>
+  </div>
 
   <!-- 🔍 SEARCH BAR -->
   <input
@@ -256,7 +292,7 @@
   © 2026 FixVers | Built by Engineers for Engineers.
 </footer>
 
-<!-- 🔥 SEARCH + DYNAMIC LOAD -->
+<!-- 🔥 SEARCH + FILTER + DYNAMIC LOAD -->
 <script>
 /* 🔍 SEARCH */
 document.getElementById("searchInput").addEventListener("keyup", function () {
@@ -266,6 +302,28 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   cards.forEach(card => {
     let text = card.innerText.toLowerCase();
     card.style.display = text.includes(filter) ? "" : "none";
+  });
+});
+
+/* 🔘 FILTER BUTTONS */
+const filterButtons = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.card');
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    const filter = button.getAttribute('data-filter');
+
+    cards.forEach(card => {
+      const tag = card.querySelector('.tag').innerText;
+      if(filter === 'all' || tag === filter){
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
   });
 });
 
