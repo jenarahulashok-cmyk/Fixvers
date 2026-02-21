@@ -129,13 +129,7 @@ button:hover {
 <div class="form-container">
   <h2>Submit a Real-World Issue</h2>
 
-  <!-- ✅ WORKING FORMSPREE FORM -->
-  <form action="https://formspree.io/f/xeelkpag" method="POST">
-
-    <!-- ✅ THIS IS THE REAL REDIRECT FIX -->
-    <input type="hidden" name="_redirect"
-           value="https://jenarahulashok-cmyk.github.io/FixVers/thankyou.html">
-
+  <form id="issueForm" action="https://formspree.io/f/xeelkpag" method="POST">
     <label>Your Name</label>
     <input type="text" name="name" required>
 
@@ -207,6 +201,30 @@ button:hover {
   </div>
 </div>
 </div>
+
+<script>
+document.getElementById('issueForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // stop default Formspree redirect
+    const form = e.target;
+
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            // ✅ Redirect to your GitHub Pages thank-you page
+            window.location.href = "https://jenarahulashok-cmyk.github.io/FixVers/thankyou.html";
+        } else {
+            alert("Oops! There was a problem submitting your form.");
+        }
+    }).catch(error => {
+        alert("Network error: " + error.message);
+    });
+});
+</script>
 
 </body>
 </html>
