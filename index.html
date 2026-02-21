@@ -6,147 +6,34 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin:0; padding:0; }
+    header { background-color: #0a1f44; color: white; text-align:center; padding: 30px 20px; }
+    header h1 { margin:0; font-size:32px; }
+    header p { margin-top:10px; font-size:14px; opacity:0.9; }
+    .nav { text-align:center; padding:15px; background:#ffffff; box-shadow:0 2px 5px rgba(0,0,0,0.05); }
+    .nav a { text-decoration:none; margin:0 15px; color:#0a1f44; font-weight:bold; }
+    .container { max-width:1100px; margin:40px auto; padding:0 20px; }
+    .section-title { font-size:22px; margin-bottom:20px; }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f9;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #0a1f44;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 32px;
-    }
-
-    header p {
-      margin-top: 10px;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    .nav {
-      text-align: center;
-      padding: 15px;
-      background: #ffffff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-
-    .nav a {
-      text-decoration: none;
-      margin: 0 15px;
-      color: #0a1f44;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .section-title {
-      font-size: 22px;
-      margin-bottom: 20px;
-    }
-
-    /* 🔍 SEARCH */
-    #searchInput {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
+    /* 🔍 SEARCH BAR */
+    #searchInput { width:100%; padding:12px; margin-bottom:20px; border-radius:6px; border:1px solid #ccc; font-size:14px; }
 
     /* 🔘 FILTER BUTTONS */
-    .filter-buttons {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+    .filter-buttons { text-align:center; margin-bottom:20px; }
+    .filter-buttons button { margin:3px; padding:6px 14px; border:none; border-radius:5px; background:#0a1f44; color:white; cursor:pointer; transition:0.2s; }
+    .filter-buttons button:hover { background:#163a7a; }
+    .filter-buttons button.active { background:#163a7a; }
 
-    .filter-buttons button {
-      margin: 0 5px 10px 5px;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #0a1f44;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+    /* 🔥 CARD LAYOUT */
+    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; }
+    .card { background:white; padding:20px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.08); transition:0.2s; display:flex; flex-direction:column; justify-content:space-between; height:100%; }
+    .card:hover { transform:translateY(-5px); }
+    .card h2 { font-size:18px; margin:0 0 10px 0; }
+    .card h2 a { text-decoration:none; color:#0a1f44; }
+    .tag { display:inline-block; background:#0a1f44; color:white; padding:4px 8px; font-size:11px; border-radius:4px; margin-bottom:10px; width:fit-content; }
 
-    .filter-buttons button:hover {
-      background-color: #163a7a;
-    }
-
-    .filter-buttons button.active {
-      background-color: #ff6600; /* active filter highlight */
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    /* 🔥 PERFECT CARD ALIGNMENT */
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      transition: 0.2s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h2 {
-      font-size: 18px;
-      margin: 0 0 10px 0;
-    }
-
-    .card h2 a {
-      text-decoration: none;
-      color: #0a1f44;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #0a1f44;
-      color: white;
-      padding: 4px 8px;
-      font-size: 11px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      width: fit-content;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #0a1f44;
-      color: white;
-      margin-top: 40px;
-    }
+    footer { text-align:center; padding:20px; background:#0a1f44; color:white; margin-top:40px; }
   </style>
 </head>
 
@@ -166,121 +53,74 @@
 
   <div class="section-title">Latest Issues</div>
 
-  <!-- 🔘 FILTER BUTTONS -->
-  <div class="filter-buttons">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="Veeam">Veeam</button>
-    <button class="filter-btn" data-filter="VMware">VMware</button>
-    <button class="filter-btn" data-filter="Linux">Linux</button>
-    <button class="filter-btn" data-filter="AWS">AWS</button>
-    <button class="filter-btn" data-filter="Cloud">Cloud</button>
-  </div>
-
   <!-- 🔍 SEARCH BAR -->
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Search issues (Veeam, VMware, AWS...)"
-  >
+  <input type="text" id="searchInput" placeholder="Search issues (Veeam, VMware, AWS...)">
+
+  <!-- 🔘 FILTER BUTTONS -->
+  <div class="filter-buttons" id="filterButtons"></div>
 
   <div class="cards" id="issuesContainer">
 
     <!-- VEEAM CONNECT HOST -->
     <div class="card">
       <span class="tag">Veeam</span>
-      <h2>
-        <a href="issues/veeam-failed-to-connect-host.html">
-          Veeam Error: Failed to Connect to Host
-        </a>
-      </h2>
+      <h2><a href="issues/veeam-failed-to-connect-host.html">Veeam Error: Failed to Connect to Host</a></h2>
       <p>Network connectivity or firewall issue between Veeam proxy and ESXi host.</p>
     </div>
 
     <!-- VMWARE DATASTORE -->
     <div class="card">
       <span class="tag">VMware</span>
-      <h2>
-        <a href="issues/esxi-datastore-not-accessible.html">
-          ESXi Datastore Not Accessible
-        </a>
-      </h2>
+      <h2><a href="issues/esxi-datastore-not-accessible.html">ESXi Datastore Not Accessible</a></h2>
       <p>Common causes and troubleshooting steps for datastore connectivity issues.</p>
     </div>
 
     <!-- AWS -->
     <div class="card">
       <span class="tag">AWS</span>
-      <h2>
-        <a href="issues/aws-ec2-instance-status-check-failed.html">
-          AWS EC2: Instance Status Check Failed
-        </a>
-      </h2>
+      <h2><a href="issues/aws-ec2-instance-status-check-failed.html">AWS EC2: Instance Status Check Failed</a></h2>
       <p>Instance reachability check failure troubleshooting in production environments.</p>
     </div>
 
     <!-- LINUX -->
     <div class="card">
       <span class="tag">Linux</span>
-      <h2>
-        <a href="issues/linux-disk-100-percent-full.html">
-          Linux Server: Disk Usage 100% Full
-        </a>
-      </h2>
+      <h2><a href="issues/linux-disk-100-percent-full.html">Linux Server: Disk Usage 100% Full</a></h2>
       <p>Production disk full troubleshooting and permanent fix strategies.</p>
     </div>
 
     <!-- VEEAM PROXY -->
     <div class="card">
       <span class="tag">Veeam</span>
-      <h2>
-        <a href="issues/veeam-backup-proxy-not-available.html">
-          Veeam Backup Proxy Not Available
-        </a>
-      </h2>
+      <h2><a href="issues/veeam-backup-proxy-not-available.html">Veeam Backup Proxy Not Available</a></h2>
       <p>Backup job fails because no proxy server is available.</p>
     </div>
 
     <!-- VEEAM DISK SPACE -->
     <div class="card">
       <span class="tag">Veeam</span>
-      <h2>
-        <a href="issues/veeam-insufficient-disk-space.html">
-          Veeam Insufficient Disk Space
-        </a>
-      </h2>
+      <h2><a href="issues/veeam-insufficient-disk-space.html">Veeam Insufficient Disk Space</a></h2>
       <p>Repository runs out of space during backup operations.</p>
     </div>
 
     <!-- VEEAM VSS -->
     <div class="card">
       <span class="tag">Veeam</span>
-      <h2>
-        <a href="issues/veeam-vss-error.html">
-          Veeam VSS Snapshot Failed
-        </a>
-      </h2>
+      <h2><a href="issues/veeam-vss-error.html">Veeam VSS Snapshot Failed</a></h2>
       <p>Backup fails due to VSS writer or snapshot issues.</p>
     </div>
 
     <!-- VEEAM CORRUPTION -->
     <div class="card">
       <span class="tag">Veeam</span>
-      <h2>
-        <a href="issues/veeam-backup-corrupted.html">
-          Veeam Backup File Corrupted
-        </a>
-      </h2>
+      <h2><a href="issues/veeam-backup-corrupted.html">Veeam Backup File Corrupted</a></h2>
       <p>Backup chain corruption detected during restore or health check.</p>
     </div>
 
     <!-- VEEAM LICENSE -->
     <div class="card">
       <span class="tag">Veeam</span>
-      <h2>
-        <a href="issues/veeam-license-expired.html">
-          Veeam License Expired
-        </a>
-      </h2>
+      <h2><a href="issues/veeam-license-expired.html">Veeam License Expired</a></h2>
       <p>Backup jobs stopped due to expired Veeam license.</p>
     </div>
 
@@ -294,55 +134,72 @@
 
 <!-- 🔥 SEARCH + FILTER + DYNAMIC LOAD -->
 <script>
-/* 🔍 SEARCH */
-document.getElementById("searchInput").addEventListener("keyup", function () {
-  let filter = this.value.toLowerCase();
-  let cards = document.querySelectorAll(".card");
+const container = document.getElementById("issuesContainer");
 
+// 🔍 SEARCH
+document.getElementById("searchInput").addEventListener("keyup", function() {
+  let filterText = this.value.toLowerCase();
+  let cards = container.querySelectorAll(".card");
   cards.forEach(card => {
     let text = card.innerText.toLowerCase();
-    card.style.display = text.includes(filter) ? "" : "none";
+    card.style.display = text.includes(filterText) ? "" : "none";
   });
 });
 
-/* 🔘 FILTER BUTTONS */
-const filterButtons = document.querySelectorAll('.filter-btn');
-const cards = document.querySelectorAll('.card');
-
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    filterButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-
-    const filter = button.getAttribute('data-filter');
-
-    cards.forEach(card => {
-      const tag = card.querySelector('.tag').innerText;
-      if(filter === 'all' || tag === filter){
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-});
-
-/* 🚀 LOAD USER SUBMISSIONS (future ready) */
-const container = document.getElementById("issuesContainer");
+// 🚀 LOAD USER SUBMISSIONS (future ready)
 const storedIssues = JSON.parse(localStorage.getItem("fixversIssues")) || [];
-
 storedIssues.reverse().forEach(issue => {
   const card = document.createElement("div");
   card.className = "card";
-
-  card.innerHTML = `
-    <span class="tag">${issue.category}</span>
-    <h2><a href="#">${issue.title}</a></h2>
-    <p>${issue.description}</p>
-  `;
-
+  card.innerHTML = `<span class="tag">${issue.category}</span>
+                    <h2><a href="#">${issue.title}</a></h2>
+                    <p>${issue.description}</p>`;
   container.prepend(card);
 });
+
+// 🔘 DYNAMIC FILTER BUTTONS
+function generateFilterButtons() {
+  const filterContainer = document.getElementById("filterButtons");
+  const cards = container.querySelectorAll(".card");
+  let categories = new Set();
+
+  cards.forEach(card => {
+    const tag = card.querySelector(".tag").innerText.trim();
+    categories.add(tag);
+  });
+
+  // "All" button
+  const allBtn = document.createElement("button");
+  allBtn.className = "filter-btn active";
+  allBtn.setAttribute("data-filter", "all");
+  allBtn.innerText = "All";
+  filterContainer.appendChild(allBtn);
+
+  categories.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.setAttribute("data-filter", cat);
+    btn.innerText = cat;
+    filterContainer.appendChild(btn);
+  });
+
+  // Click functionality
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      const filter = button.getAttribute("data-filter");
+      cards.forEach(card => {
+        const tag = card.querySelector(".tag").innerText;
+        card.style.display = (filter === "all" || tag === filter) ? "" : "none";
+      });
+    });
+  });
+}
+
+generateFilterButtons();
 </script>
 
 </body>
