@@ -21,16 +21,17 @@ header {
   background: #0a1f44;
   color: white;
   text-align: center;
-  padding: 28px 15px;
+  padding: 26px 12px;
 }
 
 header h1 {
   margin: 0;
-  font-size: 32px;
+  font-size: 30px;
 }
 
 header p {
-  margin-top: 8px;
+  margin-top: 6px;
+  font-size: 14px;
   opacity: 0.9;
 }
 
@@ -44,7 +45,7 @@ header p {
   width: 100%;
   max-width: 720px;
   background: #ffffff;
-  padding: 35px;
+  padding: 32px;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
@@ -52,7 +53,6 @@ header p {
 .form-container h2 {
   text-align: center;
   margin-bottom: 28px;
-  color: #0a1f44;
 }
 
 label {
@@ -66,7 +66,7 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 13px 14px;
+  padding: 12px 14px;
   margin-bottom: 18px;
   border-radius: 8px;
   border: 1px solid #d0d7de;
@@ -92,7 +92,7 @@ button {
   width: 100%;
   background-color: #0a1f44;
   color: white;
-  padding: 15px;
+  padding: 14px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -129,10 +129,12 @@ button:hover {
 <div class="form-container">
   <h2>Submit a Real-World Issue</h2>
 
-  <!-- ✅ WORKING FORM -->
-  <form action="https://formspree.io/f/xeelkpag"
-        method="POST"
-        onsubmit="redirectAfterSubmit()">
+  <!-- ✅ WORKING FORMSPREE FORM -->
+  <form action="https://formspree.io/f/xeelkpag" method="POST">
+
+    <!-- ✅ THIS IS THE REAL REDIRECT FIX -->
+    <input type="hidden" name="_redirect"
+           value="https://jenarahulashok-cmyk.github.io/FixVers/thankyou.html">
 
     <label>Your Name</label>
     <input type="text" name="name" required>
@@ -159,7 +161,7 @@ button:hover {
       <optgroup label="Cloud">
         <option>AWS</option>
         <option>Azure</option>
-        <option>GCP</option>
+        <option>Google Cloud</option>
       </optgroup>
 
       <optgroup label="Automation / DevOps">
@@ -173,6 +175,13 @@ button:hover {
         <option>Linux</option>
         <option>Windows Server</option>
         <option>Active Directory</option>
+      </optgroup>
+
+      <optgroup label="Storage & Networking">
+        <option>NetApp</option>
+        <option>EMC Storage</option>
+        <option>Cisco</option>
+        <option>Firewall</option>
       </optgroup>
 
       <option>Other</option>
@@ -198,15 +207,6 @@ button:hover {
   </div>
 </div>
 </div>
-
-<!-- ✅ REDIRECT SCRIPT (CRITICAL) -->
-<script>
-function redirectAfterSubmit() {
-  setTimeout(function () {
-    window.location.href = "https://jenarahulashok-cmyk.github.io/FixVers/thankyou.html";
-  }, 1200);
-}
-</script>
 
 </body>
 </html>
