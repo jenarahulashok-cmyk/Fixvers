@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f6f9;
@@ -56,22 +60,33 @@
       margin-bottom: 20px;
     }
 
+    /* 🔍 SEARCH */
+    #searchInput {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
 
+    /* 🔥 PERFECT CARD ALIGNMENT */
     .card {
       background: white;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       transition: 0.2s;
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      height: 100%;
     }
 
     .card:hover {
@@ -125,11 +140,16 @@
 
   <div class="section-title">Latest Issues</div>
 
-  <!-- 🔥 IMPORTANT: ID ADDED -->
+  <!-- 🔍 SEARCH BAR -->
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search issues (Veeam, VMware, AWS...)"
+  >
+
   <div class="cards" id="issuesContainer">
 
-    <!-- STATIC CARDS (your existing ones) -->
-
+    <!-- VEEAM CONNECT HOST -->
     <div class="card">
       <span class="tag">Veeam</span>
       <h2>
@@ -140,6 +160,7 @@
       <p>Network connectivity or firewall issue between Veeam proxy and ESXi host.</p>
     </div>
 
+    <!-- VMWARE DATASTORE -->
     <div class="card">
       <span class="tag">VMware</span>
       <h2>
@@ -150,6 +171,83 @@
       <p>Common causes and troubleshooting steps for datastore connectivity issues.</p>
     </div>
 
+    <!-- AWS -->
+    <div class="card">
+      <span class="tag">AWS</span>
+      <h2>
+        <a href="issues/aws-ec2-instance-status-check-failed.html">
+          AWS EC2: Instance Status Check Failed
+        </a>
+      </h2>
+      <p>Instance reachability check failure troubleshooting in production environments.</p>
+    </div>
+
+    <!-- LINUX -->
+    <div class="card">
+      <span class="tag">Linux</span>
+      <h2>
+        <a href="issues/linux-disk-100-percent-full.html">
+          Linux Server: Disk Usage 100% Full
+        </a>
+      </h2>
+      <p>Production disk full troubleshooting and permanent fix strategies.</p>
+    </div>
+
+    <!-- VEEAM PROXY -->
+    <div class="card">
+      <span class="tag">Veeam</span>
+      <h2>
+        <a href="issues/veeam-backup-proxy-not-available.html">
+          Veeam Backup Proxy Not Available
+        </a>
+      </h2>
+      <p>Backup job fails because no proxy server is available.</p>
+    </div>
+
+    <!-- VEEAM DISK SPACE -->
+    <div class="card">
+      <span class="tag">Veeam</span>
+      <h2>
+        <a href="issues/veeam-insufficient-disk-space.html">
+          Veeam Insufficient Disk Space
+        </a>
+      </h2>
+      <p>Repository runs out of space during backup operations.</p>
+    </div>
+
+    <!-- VEEAM VSS -->
+    <div class="card">
+      <span class="tag">Veeam</span>
+      <h2>
+        <a href="issues/veeam-vss-error.html">
+          Veeam VSS Snapshot Failed
+        </a>
+      </h2>
+      <p>Backup fails due to VSS writer or snapshot issues.</p>
+    </div>
+
+    <!-- VEEAM CORRUPTION -->
+    <div class="card">
+      <span class="tag">Veeam</span>
+      <h2>
+        <a href="issues/veeam-backup-corrupted.html">
+          Veeam Backup File Corrupted
+        </a>
+      </h2>
+      <p>Backup chain corruption detected during restore or health check.</p>
+    </div>
+
+    <!-- VEEAM LICENSE -->
+    <div class="card">
+      <span class="tag">Veeam</span>
+      <h2>
+        <a href="issues/veeam-license-expired.html">
+          Veeam License Expired
+        </a>
+      </h2>
+      <p>Backup jobs stopped due to expired Veeam license.</p>
+    </div>
+
   </div>
 
 </div>
@@ -158,23 +256,35 @@
   © 2026 FixVers | Built by Engineers for Engineers.
 </footer>
 
-<!-- 🚀🚀🚀 MAGIC SCRIPT (VERY IMPORTANT) -->
+<!-- 🔥 SEARCH + DYNAMIC LOAD -->
 <script>
-  const container = document.getElementById("issuesContainer");
-  const storedIssues = JSON.parse(localStorage.getItem("fixversIssues")) || [];
+/* 🔍 SEARCH */
+document.getElementById("searchInput").addEventListener("keyup", function () {
+  let filter = this.value.toLowerCase();
+  let cards = document.querySelectorAll(".card");
 
-  storedIssues.reverse().forEach(issue => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <span class="tag">${issue.category}</span>
-      <h2><a href="#">${issue.title}</a></h2>
-      <p>${issue.description}</p>
-    `;
-
-    container.prepend(card);
+  cards.forEach(card => {
+    let text = card.innerText.toLowerCase();
+    card.style.display = text.includes(filter) ? "" : "none";
   });
+});
+
+/* 🚀 LOAD USER SUBMISSIONS (future ready) */
+const container = document.getElementById("issuesContainer");
+const storedIssues = JSON.parse(localStorage.getItem("fixversIssues")) || [];
+
+storedIssues.reverse().forEach(issue => {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  card.innerHTML = `
+    <span class="tag">${issue.category}</span>
+    <h2><a href="#">${issue.title}</a></h2>
+    <p>${issue.description}</p>
+  `;
+
+  container.prepend(card);
+});
 </script>
 
 </body>
